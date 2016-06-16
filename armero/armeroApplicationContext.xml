@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <context:component-scan base-package="com.xunlei.httptool" />
+    <context:component-scan base-package="com.xunlei.netty">
+        <context:exclude-filter type="assignable" expression="com.xunlei.netty.httpserver.cmd.common.StatRedisCmd" />
+    </context:component-scan>
+    <context:component-scan base-package="com.xunlei.armero" />
+
+    <!-- 读入配置文件,扩展支持Annotation -->
+    <context:component-scan base-package="com.xunlei.spring" />
+    <!-- http://doc.itstrike.cn/Home/Article/Extension-Spring-use-the-Annotation-will-be-injected-into-the-Bean-in-the-allocation-of-resources -->
+    <bean id="propertyConfigurer" class="com.xunlei.spring.ExtendedPropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>/armeroserverconfig.properties</value>
+                <value>/shell.properties</value>
+            </list>
+        </property>
+    </bean>
+</beans>
